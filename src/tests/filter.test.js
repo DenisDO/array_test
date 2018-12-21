@@ -1,6 +1,5 @@
 import MyArray from '../index';
 
-
 describe('tests for method filter', () => {
   test('instance has method filter', () => {
     const arr = new MyArray(1, 4, 0);
@@ -11,12 +10,12 @@ describe('tests for method filter', () => {
   test('instance has not Own Property filter', () => {
     const arr = new MyArray(1, 4, 0);
 
-    expect(arr.hasOwnProperty('filter')).toBeFalsy();
+    expect(Object.prototype.hasOwnProperty.call(arr, 'filter')).toBeFalsy();
   });
 
   test('return value of no filter matches, returns empty array', () => {
     const arr = new MyArray(1, 3, 4);
-  
+
     expect(arr.filter(item => item === 0)).toHaveLength(0);
   });
 
@@ -74,10 +73,10 @@ describe('tests for method filter', () => {
     const testArr = [];
     const user = {
       name: 'ivan',
-      testFilter () {
+      testFilter() {
         arr.filter(() => testArr.push(this.name));
       }
-    }
+    };
 
     user.testFilter();
 
@@ -87,8 +86,12 @@ describe('tests for method filter', () => {
   test('thisArg is set as -this- of callbackFunction properly for filter method', () => {
     const arr = new MyArray(2, 6, 10, 12, 16);
     const checkNumericRange = function(value) {
-      return typeof value === 'number' && (value >= this.minimum && value <= this.maximum);
+      return (
+        typeof value === 'number' &&
+        (value >= this.minimum && value <= this.maximum)
+      );
     };
+
     const thisArg = { minimum: 10, maximum: 20 };
     const result = arr.filter(checkNumericRange, thisArg);
 
