@@ -7,7 +7,7 @@ function MyArray(...args) {
 }
 
 MyArray.prototype.toString = function() {
-  let result = String;
+  let result = '';
 
   for (let i = 0; i < this.length; i++) {
     result += this[i];
