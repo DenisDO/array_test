@@ -1,8 +1,14 @@
 function MyArray(...args) {
-  this.length = arguments.length;
+  this.length = null;
 
-  for (let i = 0; i < args.length; i++) {
-    this[i] = args[i];
+  if (args.length === 1 && typeof args[0] === 'number') {
+    this.length = args[0];
+  } else {
+    this.length = args.length;
+
+    for (let i = 0; i < args.length; i++) {
+      this[i] = args[i];
+    }
   }
 }
 
