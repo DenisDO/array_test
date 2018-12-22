@@ -201,4 +201,54 @@ MyArray.from = function(...args) {
   return resultArray;
 };
 
+MyArray.prototype.slice = function(begin, end) {
+  let resiltArray = new MyArray();
+  let start = begin;
+  let finish = end;
+
+  if (!start && !finish) {
+    return (resiltArray = MyArray.from(this));
+  }
+
+  if (start && finish) {
+    if (start < 0) {
+      start = this.length + start;
+    }
+
+    if (finish < 0) {
+      finish = this.length + finish;
+    }
+
+    for (let i = start; i < finish; i++) {
+      resiltArray.push(this[i]);
+    }
+
+    return resiltArray;
+  }
+
+  if (!start && finish) {
+    if (finish < 0) {
+      finish = this.length + finish;
+    }
+
+    for (let i = 0; i < finish; i++) {
+      resiltArray.push(this[i]);
+    }
+
+    return resiltArray;
+  }
+
+  if (start && !finish) {
+    if (start < 0) {
+      start = this.length + start;
+    }
+
+    for (let i = start; i < this.length; i++) {
+      resiltArray.push(this[i]);
+    }
+
+    return resiltArray;
+  }
+};
+
 export default MyArray;
