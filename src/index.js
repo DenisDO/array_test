@@ -8,9 +8,14 @@ function MyArray(...args) {
 
 MyArray.prototype.toString = function() {
   let result = '';
+  const comma = ',';
 
   for (let i = 0; i < this.length; i++) {
-    result += this[i];
+    if (i !== this.length - 1) {
+      result += this[i] + comma;
+    } else {
+      result += this[i];
+    }
   }
 
   return result;
