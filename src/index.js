@@ -202,12 +202,12 @@ MyArray.from = function(...args) {
 };
 
 MyArray.prototype.slice = function(begin, end) {
-  let resiltArray = new MyArray();
+  let resultArray = new MyArray();
   let start = begin;
   let finish = end;
 
   if (!start && !finish) {
-    return (resiltArray = MyArray.from(this));
+    return (resultArray = MyArray.from(this));
   }
 
   if (start && finish) {
@@ -220,10 +220,10 @@ MyArray.prototype.slice = function(begin, end) {
     }
 
     for (let i = start; i < finish; i++) {
-      resiltArray.push(this[i]);
+      resultArray.push(this[i]);
     }
 
-    return resiltArray;
+    return resultArray;
   }
 
   if (!start && finish) {
@@ -232,10 +232,10 @@ MyArray.prototype.slice = function(begin, end) {
     }
 
     for (let i = 0; i < finish; i++) {
-      resiltArray.push(this[i]);
+      resultArray.push(this[i]);
     }
 
-    return resiltArray;
+    return resultArray;
   }
 
   if (start && !finish) {
@@ -244,10 +244,10 @@ MyArray.prototype.slice = function(begin, end) {
     }
 
     for (let i = start; i < this.length; i++) {
-      resiltArray.push(this[i]);
+      resultArray.push(this[i]);
     }
 
-    return resiltArray;
+    return resultArray;
   }
 };
 
