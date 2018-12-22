@@ -75,7 +75,7 @@ MyArray.prototype.reduce = function(callback, currentValue) {
     return currentValue;
   }
 
-  if (currentValue) {
+  if (currentValue || typeof currentValue !== 'undefined') {
     acc = currentValue;
     i = 0;
   } else {
