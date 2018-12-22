@@ -257,7 +257,7 @@ MyArray.prototype.find = function(callback, thisArg) {
   for (let i = 0; i < this.length; i++) {
     element = this[i];
 
-    if (callback.call(thisArg, this[i], i, this)) {
+    if (callback.call(thisArg, element, i, this)) {
       return element;
     }
   }
