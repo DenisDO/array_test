@@ -26,6 +26,10 @@ MyArray.prototype.push = function(...args) {
 };
 
 MyArray.prototype.pop = function() {
+  if (this.length === 0) {
+    return;
+  }
+
   const value = this[this.length - 1];
   delete this[this.length - 1];
   this.length = this.length - 1;
