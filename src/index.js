@@ -251,4 +251,16 @@ MyArray.prototype.slice = function(begin, end) {
   }
 };
 
+MyArray.prototype.find = function(callback, thisArg) {
+  let element = null;
+
+  for (let i = 0; i < this.length; i++) {
+    element = this[i];
+
+    if (callback.call(thisArg, element, i, this)) {
+      return element;
+    }
+  }
+};
+
 export default MyArray;
