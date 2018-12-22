@@ -154,6 +154,27 @@ MyArray.prototype.sort = function(callback) {
   return this;
 };
 
+MyArray.prototype[Symbol.iterator] = function() {
+  let index = 0;
+  const that = this;
+
+  return {
+    next() {
+      if (index < that.length) {
+        index += 1;
+        return {
+          value: that[index - 1],
+          done: false
+        };
+      } else {
+        return {
+          done: true
+        };
+      }
+    }
+  };
+};
+
 MyArray.from = function(...args) {
   const resultArray = new MyArray();
   let callback = null;
