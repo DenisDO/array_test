@@ -202,53 +202,23 @@ MyArray.from = function(...args) {
 };
 
 MyArray.prototype.slice = function(begin, end) {
-  let resultArray = new MyArray();
-  let start = begin;
-  let finish = end;
-
-  if (!start && !finish) {
-    return (resultArray = MyArray.from(this));
+  if (!begin && !end) {
+    return (MyArray.from(this));
   }
 
-  if (start && finish) {
-    if (start < 0) {
-      start = this.length + start;
-    }
+  const resultArray = new MyArray();
 
-    if (finish < 0) {
-      finish = this.length + finish;
-    }
+  let start = begin ? begin : 0;
+  let finish = end ? end : this.length;
 
-    for (let i = start; i < finish; i++) {
-      resultArray.push(this[i]);
-    }
+  start = start < 0 ? this.length + start : start;
+  finish = finish < 0 ? this.length + finish : finish;
 
-    return resultArray;
+  for (let i = start; i < finish; i++) {
+    resultArray.push(this[i]);
   }
 
-  if (!start && finish) {
-    if (finish < 0) {
-      finish = this.length + finish;
-    }
-
-    for (let i = 0; i < finish; i++) {
-      resultArray.push(this[i]);
-    }
-
-    return resultArray;
-  }
-
-  if (start && !finish) {
-    if (start < 0) {
-      start = this.length + start;
-    }
-
-    for (let i = start; i < this.length; i++) {
-      resultArray.push(this[i]);
-    }
-
-    return resultArray;
-  }
+  return resultArray;
 };
 
 MyArray.prototype.find = function(callback, thisArg) {
