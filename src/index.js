@@ -156,21 +156,20 @@ MyArray.prototype.sort = function(callback) {
 
 MyArray.prototype[Symbol.iterator] = function() {
   let index = 0;
-  const that = this;
+  const self = this;
 
   return {
     next() {
-      if (index < that.length) {
+      while (index < self.length) {
         index += 1;
         return {
-          value: that[index - 1],
+          value: self[index - 1],
           done: false
         };
-      } else {
-        return {
-          done: true
-        };
       }
+      return {
+        done: true
+      };
     }
   };
 };
