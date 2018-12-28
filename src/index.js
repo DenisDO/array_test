@@ -28,7 +28,7 @@ MyArray.prototype.toString = function() {
 };
 
 MyArray.prototype.push = function(...args) {
-  for (let i = 0; i < arguments.length; i++) {
+  for (let i = 0; i < args.length; i++) {
     this[this.length] = args[i];
     this.length += 1;
   }
@@ -48,14 +48,8 @@ MyArray.prototype.pop = function() {
 };
 
 MyArray.prototype.forEach = function(callback, thisArg) {
-  let self = null;
-
-  if (thisArg) {
-    self = thisArg;
-  }
-
   for (let i = 0; i < this.length; i++) {
-    callback.call(self, this[i], i, this);
+    callback.call(thisArg, this[i], i, this);
   }
 };
 
@@ -93,14 +87,8 @@ MyArray.prototype.reduce = function(callback, currentValue) {
 MyArray.prototype.map = function(callback, thisArg) {
   const resultArray = new MyArray();
 
-  let self = null;
-
-  if (thisArg) {
-    self = thisArg;
-  }
-
   for (let i = 0; i < this.length; i++) {
-    const newElement = callback.call(self, this[i], i, this);
+    const newElement = callback.call(thisArg, this[i], i, this);
     resultArray[i] = newElement;
     resultArray.length += 1;
   }
@@ -111,14 +99,8 @@ MyArray.prototype.map = function(callback, thisArg) {
 MyArray.prototype.filter = function(callback, thisArg) {
   const resultArray = new MyArray();
 
-  let self = null;
-
-  if (thisArg) {
-    self = thisArg;
-  }
-
   for (let i = 0; i < this.length; i++) {
-    if (callback.call(self, this[i], i, this)) {
+    if (callback.call(thisArg, this[i], i, this)) {
       resultArray.push(this[i]);
     }
   }
@@ -177,23 +159,16 @@ MyArray.prototype[Symbol.iterator] = function() {
 MyArray.from = function(...args) {
   const resultArray = new MyArray();
   let callback = null;
-  let self = null;
-
-  if (args[2]) {
-    self = args[2];
-  }
 
   if (args[1]) {
     callback = args[1];
 
     for (let i = 0; i < args[0].length; i++) {
-      resultArray[i] = callback.call(self, args[0][i], i, args[0]);
-      resultArray.length += 1;
+      resultArray.push(callback.call(args[2], args[0][i], i, args[0]));
     }
   } else {
     for (let i = 0; i < args[0].length; i++) {
-      resultArray[i] = args[0][i];
-      resultArray.length += 1;
+      resultArray.push(args[0][i]);
     }
   }
 
@@ -221,15 +196,12 @@ MyArray.prototype.slice = function(begin, end) {
 };
 
 MyArray.prototype.find = function(callback, thisArg) {
-  let element = null;
-
   for (let i = 0; i < this.length; i++) {
-    element = this[i];
-
-    if (callback.call(thisArg, element, i, this)) {
-      return element;
+    if (callback.call(thisArg, this[i], i, this)) {
+      return this[i];
     }
   }
+  return undefined;
 };
 
 export default MyArray;
