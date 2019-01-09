@@ -47,30 +47,22 @@ MyArray.prototype.forEach = function(callback, thisArg) {
 };
 
 MyArray.prototype.reduce = function(callback, currentValue) {
-  let acc = null;
-  let i = null;
+  let acc = currentValue === undefined ? this[0] : currentValue;
 
   if (this.length === 0 && !currentValue) {
     throw new TypeError('Reduce of empty array with no initial value');
-  }
-
-  if (this.length === 1 && !currentValue) {
-    return this[0];
   }
 
   if (this.length === 0 && currentValue) {
     return currentValue;
   }
 
-  if (currentValue || typeof currentValue !== 'undefined') {
-    acc = currentValue;
-    i = 0;
-  } else {
-    acc = this[0];
-    i = 1;
+  if (currentValue !== undefined) {
+    acc = callback(currentValue, this[0], 0, this);
   }
 
-  for (; i < this.length; i++) {
+
+  for (let i = 1; i < this.length; i++) {
     acc = callback(acc, this[i], i, this);
   }
 
