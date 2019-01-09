@@ -106,28 +106,32 @@ MyArray.prototype.filter = function(callback, thisArg) {
 };
 
 MyArray.prototype.sort = function(callback) {
-  if (!callback) {
-    for (let i = 1; i < this.length; i++) {
-      const current = this[i];
-      let j = i;
+  let cb = callback;
 
-      while (j > 0 && String(this[j - 1]) > String(current)) {
-        this[j] = this[j - 1];
-        j -= 1;
-      }
+  if (!cb) {
+    cb = (a, b) => {
+      const a1 = String(a);
+      const b1 = String(b);
 
-      this[j] = current;
-    }
-  } else {
-    for (let i = 0; i < this.length - 1; i++) {
-      for (let j = 0; j < this.length - 1; j++) {
-        if (callback(this[j], this[j + 1]) >= 0) {
-          const max = this[j];
-          this[j] = this[j + 1];
-          this[j + 1] = max;
-        }
+      if (a1 > b1) {
+        return 1;
+      } else if (b1 > a1) {
+        return -1;
+      } else {
+        return 0;
       }
+    };
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    const swapElem = this[i];
+    let lastValue = i - 1;
+
+    while (lastValue >= 0 && cb(this[lastValue], swapElem) > 0) {
+      this[lastValue + 1] = this[lastValue];
+      lastValue -= 1;
     }
+    this[lastValue + 1] = swapElem;
   }
 
   return this;
