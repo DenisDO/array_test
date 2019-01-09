@@ -1,6 +1,4 @@
 function MyArray(...args) {
-  this.length = null;
-
   if (args.length === 1 && typeof args[0] === 'number') {
     this.length = args[0];
   } else {
@@ -43,7 +41,7 @@ MyArray.prototype.pop = function() {
 
   const value = this[this.length - 1];
   delete this[this.length - 1];
-  this.length = this.length - 1;
+  this.length -= 1;
   return value;
 };
 
@@ -88,8 +86,7 @@ MyArray.prototype.map = function(callback, thisArg) {
   const resultArray = new MyArray();
 
   for (let i = 0; i < this.length; i++) {
-    const newElement = callback.call(thisArg, this[i], i, this);
-    resultArray[i] = newElement;
+    resultArray[i] = callback.call(thisArg, this[i], i, this);
     resultArray.length += 1;
   }
 
@@ -176,10 +173,6 @@ MyArray.from = function(...args) {
 };
 
 MyArray.prototype.slice = function(begin, end) {
-  if (!begin && !end) {
-    return (MyArray.from(this));
-  }
-
   const resultArray = new MyArray();
 
   let start = begin ? begin : 0;
@@ -201,7 +194,6 @@ MyArray.prototype.find = function(callback, thisArg) {
       return this[i];
     }
   }
-  return undefined;
 };
 
 export default MyArray;
