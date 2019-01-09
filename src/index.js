@@ -106,22 +106,7 @@ MyArray.prototype.filter = function(callback, thisArg) {
 };
 
 MyArray.prototype.sort = function(callback) {
-  let cb = callback;
-
-  if (!cb) {
-    cb = (a, b) => {
-      const a1 = String(a);
-      const b1 = String(b);
-
-      if (a1 > b1) {
-        return 1;
-      } else if (b1 > a1) {
-        return -1;
-      } else {
-        return 0;
-      }
-    };
-  }
+  const cb = callback ? callback : (a, b) => `${a}` > `${b}`;
 
   for (let i = 0; i < this.length; i++) {
     const swapElem = this[i];
