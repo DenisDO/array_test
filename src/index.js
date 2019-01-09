@@ -84,7 +84,8 @@ MyArray.prototype.filter = function(callback, thisArg) {
 
   for (let i = 0; i < this.length; i++) {
     if (callback.call(thisArg, this[i], i, this)) {
-      resultArray.push(this[i]);
+      resultArray[resultArray.length] = this[i];
+      resultArray.length += 1;
     }
   }
 
@@ -154,7 +155,8 @@ MyArray.prototype.slice = function(begin, end) {
   const finish = end < 0 ? this.length + end : end || this.length;
 
   for (let i = start; i < finish; i++) {
-    resultArray.push(this[i]);
+    resultArray[resultArray.length] = this[i];
+    resultArray.length += 1;
   }
 
   return resultArray;
