@@ -151,11 +151,8 @@ MyArray.from = function(...args) {
 MyArray.prototype.slice = function(begin, end) {
   const resultArray = new MyArray();
 
-  let start = begin ? begin : 0;
-  let finish = end ? end : this.length;
-
-  start = start < 0 ? this.length + start : start;
-  finish = finish < 0 ? this.length + finish : finish;
+  const start = begin < 0 ? this.length + begin : begin || 0;
+  const finish = end < 0 ? this.length + end : end || this.length;
 
   for (let i = start; i < finish; i++) {
     resultArray.push(this[i]);
