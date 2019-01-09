@@ -128,19 +128,21 @@ MyArray.prototype[Symbol.iterator] = function() {
   };
 };
 
-MyArray.from = function(...args) {
+MyArray.from = function(arrayLike, mapFn, thisArg) {
   const resultArray = new MyArray();
   let callback = null;
 
-  if (args[1]) {
-    callback = args[1];
+  if (mapFn) {
+    callback = mapFn;
 
-    for (let i = 0; i < args[0].length; i++) {
-      resultArray.push(callback.call(args[2], args[0][i], i, args[0]));
+    for (let i = 0; i < arrayLike.length; i++) {
+      resultArray[i] = mapFn.call(thisArg, arrayLike[i]);
+      resultArray.length += 1;
     }
   } else {
-    for (let i = 0; i < args[0].length; i++) {
-      resultArray.push(args[0][i]);
+    for (let i = 0; i < arrayLike.length; i++) {
+      resultArray[i] = arrayLike[i];
+      resultArray.length += 1;
     }
   }
 
