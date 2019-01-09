@@ -11,15 +11,10 @@ function MyArray(...args) {
 }
 
 MyArray.prototype.toString = function() {
-  let result = '';
-  const comma = ',';
+  let result = this.length === 0 ? '' : this[0];
 
-  for (let i = 0; i < this.length; i++) {
-    if (i !== this.length - 1) {
-      result += this[i] + comma;
-    } else {
-      result += this[i];
-    }
+  for (let i = 1; i < this.length; i++) {
+    result += `,${this[i]}`;
   }
 
   return result;
