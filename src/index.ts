@@ -50,4 +50,26 @@ class MyArray<T> {
       callback.call(thisArg, this[i], i, this);
     }
   }
+
+  reduce(callback: (accumulator?: T, currentValue?: T, index?: number, array?: MyArray<T>) => T, currentValue: T): T {
+    if (this.length === 0 && !currentValue) {
+      throw new TypeError('Reduce of empty array with no initial value');
+    }
+  
+    if (this.length === 0 && currentValue) {
+      return currentValue;
+    }
+  
+    let accumulator = currentValue === undefined ? this[0] : currentValue;
+  
+    if (currentValue !== undefined) {
+      accumulator = callback(currentValue, this[0], 0, this);
+    }
+  
+    for (let index = 1; index < this.length; index++) {
+      accumulator = callback(accumulator, this[index], index, this);
+    }
+  
+    return accumulator;
+  }
 }
