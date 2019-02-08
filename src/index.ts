@@ -127,4 +127,12 @@ class MyArray<T> {
   
     return resultArray;
   }
+
+  find(callback: (element?: T, index?: number, array?: MyArray<T>) => boolean, thisArg?: any): T | undefined {
+    for (let i = 0; i < this.length; i++) {
+      if (callback.call(thisArg, this[i], i, this)) {
+        return this[i];
+      }
+    }
+  }
 }
