@@ -33,4 +33,15 @@ class MyArray<T> {
   
     return this.length;
   }
+
+  pop(): T {
+    if (this.length === 0) {
+      return;
+    }
+  
+    const value = this[this.length - 1];
+    delete this[this.length - 1];
+    this.length -= 1;
+    return value;
+  }
 }
