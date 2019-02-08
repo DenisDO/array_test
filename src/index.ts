@@ -44,4 +44,10 @@ class MyArray<T> {
     this.length -= 1;
     return value;
   }
+
+  forEach(callback: (currentValue?: T, index?: number, array?: MyArray<T>) => void, thisArg?: any): void {
+    for (let i = 0; i < this.length; i++) {
+      callback.call(thisArg, this[i], i, this);
+    }
+  }
 }
