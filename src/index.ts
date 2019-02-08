@@ -72,4 +72,15 @@ class MyArray<T> {
   
     return accumulator;
   }
+
+  map<R>(callback: (currentValue?: T, index?: number, array?: MyArray<T>) => R, thisArg?: any): MyArray<R> {
+    const resultArray = new MyArray<R>();
+  
+    for (let i = 0; i < this.length; i++) {
+      resultArray[i] = callback.call(thisArg, this[i], i, this);
+      resultArray.length += 1;
+    }
+  
+    return resultArray;
+  }
 }
