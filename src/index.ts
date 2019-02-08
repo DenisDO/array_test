@@ -14,4 +14,14 @@ class MyArray<T> {
       }
     }
   }
+
+  toString(): string {
+    let result = this.length === 0 ? '' : `${this[0]}`;
+  
+    for (let i = 1; i < this.length; i++) {
+      result += `,${this[i]}`;
+    }
+  
+    return result;
+  }
 }
