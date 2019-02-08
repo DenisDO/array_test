@@ -96,4 +96,21 @@ class MyArray<T> {
   
     return resultArray;
   }
+
+  sort(callback?: (a: T, b: T) => number): MyArray<T> {
+    const cb = callback ? callback : (a: T, b: T) => `${a}` > `${b}`;
+  
+    for (let i = 0; i < this.length; i++) {
+      const swapElem = this[i];
+      let lastValue = i - 1;
+  
+      while (lastValue >= 0 && cb(this[lastValue], swapElem) > 0) {
+        this[lastValue + 1] = this[lastValue];
+        lastValue -= 1;
+      }
+      this[lastValue + 1] = swapElem;
+    }
+  
+    return this;
+  }
 }
