@@ -24,4 +24,13 @@ class MyArray<T> {
   
     return result;
   }
+
+  push(...args: T[]): number {
+    for (let i = 0; i < args.length; i++) {
+      this[this.length] = args[i];
+      this.length += 1;
+    }
+  
+    return this.length;
+  }
 }
