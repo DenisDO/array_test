@@ -113,4 +113,18 @@ class MyArray<T> {
   
     return this;
   }
+
+  slice(begin?: number, end?: number): MyArray<T> {
+    const resultArray = new MyArray<T>();
+  
+    const start = begin < 0 ? this.length + begin : begin || 0;
+    const finish = end < 0 ? this.length + end : end || this.length;
+  
+    for (let i = start; i < finish; i++) {
+      resultArray[resultArray.length] = this[i];
+      resultArray.length += 1;
+    }
+  
+    return resultArray;
+  }
 }
