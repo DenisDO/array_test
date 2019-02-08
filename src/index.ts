@@ -83,4 +83,17 @@ class MyArray<T> {
   
     return resultArray;
   }
+
+  filter(callback: (currentValue?: T, index?: number, array?: MyArray<T>) => any, thisArg?: any): MyArray<T> {
+    const resultArray = new MyArray<T>();
+  
+    for (let i = 0; i < this.length; i++) {
+      if (callback.call(thisArg, this[i], i, this)) {
+        resultArray[resultArray.length] = this[i];
+        resultArray.length += 1;
+      }
+    }
+  
+    return resultArray;
+  }
 }
